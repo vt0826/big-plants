@@ -1,69 +1,30 @@
 import React from "react";
+// styled components
 import styled from "styled-components";
+//import constant
+import { device } from "../constant/device";
+//reachrouter
 import { Link } from "@reach/router";
+//data
 import plantsData from "../data/plants";
-
-function size(index) {
-  if (index === 3 || index === 6) {
-    return "wide";
-  } else {
-    return "narrow";
-  }
-}
-
-function PlantImage(props) {
-  return (
-    <StyledLink to={`detail/${props.index}`}>
-      <ImgOverlay image={props.plantImages} size={props.size}>
-        <Overlay>
-          <OverlayText>{props.header}</OverlayText>
-        </Overlay>
-      </ImgOverlay>
-    </StyledLink>
-  );
-}
-
-//<Img src={props.plantImages} alt={"plant"} key={props.index} />
-function Plants(props) {
-  return (
-    <Wrapper>
-      {plantsData.map((plant, index) => {
-        const plantImages = require("../img/" + plant.img);
-        return (
-          <Container size={size(index)} key={index}>
-            <ImageContainer>
-              <PlantImage plantImages={plantImages} index={index} header={plant.header} size={size(index)} />
-            </ImageContainer>
-            <SummaryContainer size={size(index)}>
-              <StyledLink to={`detail/${index}`}>
-                <NameText size={size(index)}>{plant.name}</NameText>
-                <SummaryText size={size(index)}>{plant.summary}</SummaryText>
-              </StyledLink>
-            </SummaryContainer>
-            <Link to={`detail/${index}`}></Link>
-          </Container>
-        );
-      })}
-    </Wrapper>
-  );
-}
-
-export { Plants };
 
 const Wrapper = styled.section`
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
-  @media (min-width: 768px) {
-    padding: 150px 64px 0px;
+  padding: 50px 10px;
+
+  @media ${device.tablet} {
+    padding: 200px 64px;
   }
 `;
 
 const Container = styled.div`
   margin-top: 60px;
   flex-basis: 100%;
-  @media (min-width: 768px) {
-    flex-basis: ${props => (props.size === "wide" ? "66.6%" : "33.3%")};
+
+  @media ${device.tablet} {
+    flex-basis: ${props => (props.isWide ? "66.6%" : "33.3%")};
   }
 `;
 
@@ -75,15 +36,16 @@ const Overlay = styled.div`
   right: 0;
   opacity: 0;
   transition: 0.5s ease;
-  background-color: #90ee90;
+  background-color: ${props => props.theme.overlayBackgroundColor};
 }`;
 
 const ImageContainer = styled.div`
 :hover ${Overlay} {
   opacity: 1;
 }
-@media (min-width: 768px) {
-  border-bottom: 3px solid #000;
+  
+@media ${device.tablet}  {
+  border-bottom: 3px solid ${props => props.theme.borderColor};;
   padding:0 40px;
     }
   }
@@ -93,8 +55,9 @@ const ImageContainer = styled.div`
 const SummaryContainer = styled(Container)`
   margin: 0;
   display: flex;
-  @media (min-width: 768px) {
-    width: ${props => (props.size === "wide" ? "50%" : "80%")};
+
+  @media ${device.tablet} {
+    width: ${props => (props.isWide ? "50%" : "80%")};
     padding: 0 40px;
   }
 `;
@@ -118,7 +81,8 @@ const ImgOverlay = styled.div`
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  @media (min-width: 768px) {
+
+  @media ${device.tablet} {
     height: 300px;
   }
 `;
@@ -133,5 +97,52 @@ const SummaryText = styled.p`
 
 const StyledLink = styled(Link)`
   text-decoration: none;
-  color: #000;
+  color: ${props => props.theme.textColor};
 `;
+
+//check the index for wideder pics
+function isWide(index) {
+  if (index === 3 || index === 6) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function PlantImage(props) {
+  return (
+    <StyledLink to={`detail/${props.index}`}>
+      <ImgOverlay image={props.plantImages}>
+        <Overlay>
+          <OverlayText>{props.header}</OverlayText>
+        </Overlay>
+      </ImgOverlay>
+    </StyledLink>
+  );
+}
+
+function Plants(props) {
+  return (
+    <Wrapper>
+      {plantsData.map((plant, index) => {
+        const plantImages = require("../img/" + plant.img);
+        return (
+          <Container isWide={isWide(index)} key={index}>
+            <ImageContainer>
+              <PlantImage plantImages={plantImages} index={index} header={plant.header} />
+            </ImageContainer>
+            <SummaryContainer isWide={isWide(index)}>
+              <StyledLink to={`detail/${index}`}>
+                <NameText>{plant.name}</NameText>
+                <SummaryText>{plant.summary}</SummaryText>
+              </StyledLink>
+            </SummaryContainer>
+            <Link to={`detail/${index}`}></Link>
+          </Container>
+        );
+      })}
+    </Wrapper>
+  );
+}
+
+export { Plants };
