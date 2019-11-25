@@ -6,6 +6,8 @@ import { Plants } from "./components/plants";
 import { Router } from "@reach/router";
 import { PlantDetail } from "./components/plantDetail";
 
+//
+
 function Home() {
   return (
     <>

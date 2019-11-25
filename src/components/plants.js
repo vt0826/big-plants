@@ -16,7 +16,7 @@ function size(index) {
 function PlantImage(props) {
   return (
     <StyledLink to={`detail/${props.index}`}>
-      <ImgOverlay image={props.plantImages}>
+      <ImgOverlay image={props.plantImages} size={props.size}>
         <Overlay>
           <OverlayText>{props.header}</OverlayText>
         </Overlay>
@@ -34,7 +34,7 @@ function Plants(props) {
         return (
           <Container size={size(index)} key={index}>
             <ImageContainer>
-              <PlantImage plantImages={plantImages} index={index} header={plant.header} />
+              <PlantImage plantImages={plantImages} index={index} header={plant.header} size={size(index)} />
             </ImageContainer>
             <SummaryContainer size={size(index)}>
               <StyledLink to={`detail/${index}`}>
@@ -82,14 +82,12 @@ const Overlay = styled.div`
 }`;
 
 const ImageContainer = styled.div`
- padding:0 40px;
-
-  :hover ${Overlay} {
-    opacity: 1;
-  }
-
-  @media (min-width: 768px) {
-      border-bottom: 3px solid #000;
+:hover ${Overlay} {
+  opacity: 1;
+}
+@media (min-width: 768px) {
+  border-bottom: 3px solid #000;
+  padding:0 40px;
     }
   }
 
@@ -97,10 +95,10 @@ const ImageContainer = styled.div`
 
 const SummaryContainer = styled(Container)`
   margin: 0;
-  padding: 0 40px;
   display: flex;
   @media (min-width: 768px) {
     width: ${props => (props.size === "wide" ? "50%" : "80%")};
+    padding: 0 40px;
   }
 `;
 
@@ -128,8 +126,7 @@ const ImgOverlay = styled.div`
   -o-background-size: cover;
   background-size: cover;
   @media (min-width: 768px) {
-    height: auto;
-    padding-bottom: 100%;
+    height: 300px;
   }
 `;
 

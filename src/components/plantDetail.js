@@ -44,7 +44,7 @@ function PlantDetail(props) {
           </Link>
         </ArrowContainer>
         <ImageContainer>
-          <img src={plantImage} alt={"plant"} />
+          <Img image={plantImage} />
           <LabelName>{plant.name}</LabelName>
         </ImageContainer>
         <SummaryContainer>
@@ -111,6 +111,23 @@ const ImageContainer = styled.article`
   }
 `;
 
+const Img = styled.div`
+  background-image: url(${props => props.image});
+  height: 250px;
+  position: relative;
+  text-align: center;
+  margin: 0 auto;
+  background-position: center center;
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  @media (min-width: 768px) {
+    height: auto;
+    padding-bottom: 100%;
+  }
+`;
 const SummaryContainer = styled.article`
   flex-basis: 100%;
   padding: 0 20px;
