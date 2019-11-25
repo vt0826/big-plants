@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Link } from "@reach/router";
 import plantsData from "../data/plants.json";
-import backIcon from "../img/back-arrow.png";
 
 function CommentsDisplay(props) {
   return (
@@ -38,11 +36,6 @@ function PlantDetail(props) {
   if (plant) {
     return (
       <Wrapper>
-        <ArrowContainer>
-          <Link to="/">
-            <img src={backIcon} alt={"backIcon"} />
-          </Link>
-        </ArrowContainer>
         <ImageContainer>
           <Img image={plantImage} />
           <LabelName>{plant.name}</LabelName>
@@ -78,36 +71,18 @@ function PlantDetail(props) {
 export { PlantDetail };
 
 const Wrapper = styled.section`
-  margin-top: 120px;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   flex-wrap: wrap;
   @media (min-width: 768px) {
-    margin-top: 200px;
     padding: 26px 20px;
-  }
-`;
-const ArrowContainer = styled.article`
-  flex-basis: 100%;
-  img {
-    cursor: pointer;
-    width: 40px;
   }
 `;
 const ImageContainer = styled.article`
   flex-basis: 100%;
-  img {
-    width: 100%;
-    margin: 0;
-  }
   @media (min-width: 768px) {
-    margin-top: 40px;
-    flex-basis: 45%;
-    img {
-      width: 100%;
-      margin: 0;
-    }
+    flex-basis: 50%;
   }
 `;
 
@@ -115,8 +90,6 @@ const Img = styled.div`
   background-image: url(${props => props.image});
   height: 250px;
   position: relative;
-  text-align: center;
-  margin: 0 auto;
   background-position: center center;
   background-repeat: no-repeat;
   -webkit-background-size: cover;

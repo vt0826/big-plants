@@ -1,21 +1,19 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import logo from "../img/icon.png";
-import { Link } from "@reach/router";
+import logo from "../img/big-plant-logo.png";
+import menu from "../img/menu-icon.png";
+import { Link, Match } from "@reach/router";
+import backIcon from "../img/back-arrow.png";
 
 function MobileNav(props) {
   return (
-    <>
-      <MobileNavContainer
-        onClick={() => {
-          props.setActiveMenu(!props.activeMenu);
-        }}
-      >
-        <span></span>
-        <span></span>
-        <span></span>
-      </MobileNavContainer>
-    </>
+    <MobileNavContainer
+      onClick={() => {
+        props.setActiveMenu(!props.activeMenu);
+      }}
+    >
+      <Image src={menu} alt="logo" />
+    </MobileNavContainer>
   );
 }
 
@@ -44,7 +42,7 @@ function DesktopNav(props) {
 function Header(props) {
   const [activeMenu, setActiveMenu] = useState(false);
   return (
-    <WrapperContainer>
+    <Wrapper>
       <Wrapper>
         <HeaderContainer>
           <NavLeft activeMenu={activeMenu}>
@@ -57,16 +55,28 @@ function Header(props) {
             <MobileNav setActiveMenu={setActiveMenu} activeMenu={activeMenu} />
             <DesktopNav activeMenu={activeMenu} />
           </NavRight>
+
+          <Match path="/detail/:plantId">
+            {props =>
+              props.match ? (
+                <NavBottom>
+                  <Link to="/">
+                    <img src={backIcon} alt={"backIcon"} />
+                  </Link>
+                </NavBottom>
+              ) : null
+            }
+          </Match>
         </HeaderContainer>
       </Wrapper>
-    </WrapperContainer>
+    </Wrapper>
   );
 }
 
 export { Header };
 
 //styles
-const WrapperContainer = styled.header`
+const Wrapper = styled.header`
   background-color: #fff;
   position: fixed;
   z-index: 9;
@@ -74,22 +84,18 @@ const WrapperContainer = styled.header`
   left: 0;
   right: 0;
 `;
-const Wrapper = styled.section`
-  max-width: 1440px;
-  margin: 0 auto;
-`;
 
 const HeaderContainer = styled.section`
+  max-width: 1440px;
+  margin: 0 auto;
   display: flex;
   flex-direction: row;
   align-items: baseline;
   flex-wrap: wrap;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding: 20px, 8px;
 
   @media (min-width: 768px) {
-    padding-left: 64px;
-    padding-right: 64px;
+    padding: 20px 64px;
   }
 `;
 
@@ -101,8 +107,8 @@ const Image = styled.img`
 `;
 const NavCenter = styled.div`
   flex-grow: 1;
-  order: 3;
-  flex-basis: 100%;
+  order: 5;
+  flex-basis: 75%;
   text-align: center;
   font-size: 2.5rem;
   font-weight: 700;
@@ -113,29 +119,23 @@ const NavCenter = styled.div`
     order: 2;
     flex-grow: 2;
     flex-basis: auto;
-    width: 3rem;
-    margin: 6px;
   }
 `;
 const NavLeft = styled(NavCenter)`
   order: ${props => (props.activeMenu ? "2" : "1")};
-  flex-basis: 25%;
+  flex-basis: 50%;
   text-align: left;
 
   @media (min-width: 768px) {
     flex-grow: 2;
-
-    justify-content: flex-start;
-    align-items: flex-start;
-    padding: 0;
   }
 `;
 const NavRight = styled(NavCenter)`
   order: ${props => (props.activeMenu ? "1" : "2")};
   height: ${props => (props.activeMenu ? "100vh" : "")};
-  flex-basis: ${props => (props.activeMenu ? "100%" : "25%")};
-  text-align: right;
+  flex-basis: ${props => (props.activeMenu ? "100%" : "50%")};
   justify-content: flex-end;
+  text-align: right;
   flex-direction: column;
   flex-wrap: wrap;
 
@@ -146,6 +146,16 @@ const NavRight = styled(NavCenter)`
     padding: 0;
     align-items: flex-start;
     flex-direction: row;
+  }
+`;
+const NavBottom = styled.div`
+  order: 4;
+  flex-basis: 25%;
+  img {
+    width: 25px;
+  }
+  @media (min-width: 768px) {
+    flex-basis: 100%;
   }
 `;
 const MobileNavContainer = styled.div`
@@ -172,7 +182,7 @@ const DeskNav = styled.nav`
   font-size: 2rem;
   line-height: 1;
   text-align: center;
-  margin: 6px;
+  margin: 0 6px;
   flex-direction: row;
   flex-wrap: wrap;
   cursor: pointer;

@@ -51,7 +51,6 @@ function Plants(props) {
 export { Plants };
 
 const Wrapper = styled.section`
-  padding: 60px 10px 0px;
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
@@ -102,13 +101,9 @@ const SummaryContainer = styled(Container)`
 
 const OverlayText = styled.h3`
   font-size: 24px;
-  width: 100;
+  width: 100%;
   position: absolute;
-  top: 45%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
+  top: 35%;
 `;
 
 const ImgOverlay = styled.div`
