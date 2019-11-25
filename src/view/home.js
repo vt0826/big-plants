@@ -1,13 +1,12 @@
 import React from "react";
-import "./App.css";
-
+import styled from "styled-components";
 //components
 import { Header } from "./components/header";
 import { Plants } from "./components/plants";
 import { Router } from "@reach/router";
 import { PlantDetail } from "./components/plantDetail";
 
-function App() {
+function Home() {
   return (
     <>
       <Header />
@@ -21,4 +20,4 @@ function App() {
   );
 }
 
-export default App;
+export { Home };

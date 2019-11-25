@@ -75,7 +75,7 @@ function PlantDetail(props) {
   }
 }
 
-export default PlantDetail;
+export { PlantDetail };
 
 const Wrapper = styled.section`
   margin-top: 120px;

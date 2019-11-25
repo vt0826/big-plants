@@ -45,26 +45,36 @@ function DesktopNav(props) {
 function Header(props) {
   const [activeMenu, setActiveMenu] = useState(false);
   return (
-    <Wrapper>
-      <HeaderContainer>
-        <NavLeft activeMenu={activeMenu}>
-          <Link to="/">
-            <Image src={logo} alt="logo" />
-          </Link>
-        </NavLeft>
-        <NavCenter>Big plant</NavCenter>
-        <NavRight activeMenu={activeMenu}>
-          <MobileNav setActiveMenu={setActiveMenu} activeMenu={activeMenu} />
-          <DesktopNav activeMenu={activeMenu} />
-        </NavRight>
-      </HeaderContainer>
-    </Wrapper>
+    <WrapperContainer>
+      <Wrapper>
+        <HeaderContainer>
+          <NavLeft activeMenu={activeMenu}>
+            <Link to="/">
+              <Image src={logo} alt="logo" />
+            </Link>
+          </NavLeft>
+          <NavCenter>Big plant</NavCenter>
+          <NavRight activeMenu={activeMenu}>
+            <MobileNav setActiveMenu={setActiveMenu} activeMenu={activeMenu} />
+            <DesktopNav activeMenu={activeMenu} />
+          </NavRight>
+        </HeaderContainer>
+      </Wrapper>
+    </WrapperContainer>
   );
 }
 
-export default Header;
+export { Header };
 
 //styles
+const WrapperContainer = styled.header`
+  background-color: #fff;
+  position: fixed;
+  z-index: 9;
+  top: 0;
+  left: 0;
+  right: 0;
+`;
 const Wrapper = styled.section`
   max-width: 1440px;
   margin: 0 auto;

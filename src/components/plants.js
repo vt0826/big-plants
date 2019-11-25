@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "@reach/router";
 import plantsData from "../data/plants";
+import image from "../img/icon.png";
+import logo from "../img/icon.png";
 
 function size(index) {
   if (index === 3 || index === 6) {
@@ -13,24 +15,24 @@ function size(index) {
 
 function PlantImage(props) {
   return (
-    <ImgOverlay>
-      <StyledLink to={`detail/${props.index}`}>
+    <StyledLink to={`detail/${props.index}`}>
+      <ImgOverlay image={props.plantImages}>
         <Overlay>
           <OverlayText>{props.header}</OverlayText>
         </Overlay>
-        <Img src={props.plantImages} alt={"plant"} key={props.index} />
-      </StyledLink>
-    </ImgOverlay>
+      </ImgOverlay>
+    </StyledLink>
   );
 }
 
+//<Img src={props.plantImages} alt={"plant"} key={props.index} />
 function Plants(props) {
   return (
     <Wrapper>
       {plantsData.map((plant, index) => {
         const plantImages = require("../img/" + plant.img);
         return (
-          <Container size={size(index)}>
+          <Container size={size(index)} key={index}>
             <ImageContainer>
               <PlantImage plantImages={plantImages} index={index} header={plant.header} />
             </ImageContainer>
@@ -48,7 +50,7 @@ function Plants(props) {
   );
 }
 
-export default Plants;
+export { Plants };
 
 const Wrapper = styled.section`
   padding: 60px 10px 0px;
@@ -64,23 +66,7 @@ const Container = styled.div`
   margin-top: 80px;
   flex-basis: 100%;
   @media (min-width: 768px) {
-    flex-basis: ${props => (props.size === "wide" ? "66.3%" : "33.3%")};
-  }
-`;
-const ImageContainer = styled.div`
-  width: 100%;
-  @media (min-width: 768px) {
-      border-bottom: 3px solid #000;
-    }
-  }
-`;
-
-const SummaryContainer = styled(Container)`
-  margin: 0;
-  padding: 0 40px;
-  display: flex;
-  @media (min-width: 768px) {
-    width: ${props => (props.size === "wide" ? "50%" : "80%")};
+    flex-basis: ${props => (props.size === "wide" ? "66.6%" : "33.3%")};
   }
 `;
 
@@ -93,8 +79,31 @@ const Overlay = styled.div`
   opacity: 0;
   transition: 0.5s ease;
   background-color: #90ee90;
-
 }`;
+
+const ImageContainer = styled.div`
+ padding:0 40px;
+
+  :hover ${Overlay} {
+    opacity: 1;
+  }
+
+  @media (min-width: 768px) {
+      border-bottom: 3px solid #000;
+    }
+  }
+
+`;
+
+const SummaryContainer = styled(Container)`
+  margin: 0;
+  padding: 0 40px;
+  display: flex;
+  @media (min-width: 768px) {
+    width: ${props => (props.size === "wide" ? "50%" : "80%")};
+  }
+`;
+
 const OverlayText = styled.h3`
   font-size: 24px;
   width: 100;
@@ -107,16 +116,20 @@ const OverlayText = styled.h3`
 `;
 
 const ImgOverlay = styled.div`
-  width: 80%;
+  background-image: url(${props => props.image});
+  height: 250px;
   position: relative;
   text-align: center;
   margin: 0 auto;
+  background-position: center center;
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
   @media (min-width: 768px) {
-    margin: 0 40px;
-  }
-
-  :hover ${Overlay} {
-    opacity: 1;
+    height: auto;
+    padding-bottom: 100%;
   }
 `;
 
@@ -132,15 +145,9 @@ const Img = styled.img`
 const NameText = styled.h3`
   font-size: 28px;
   font-weight: 700;
-  @media (min-width: 768px) {
-    padding-left: ${props => (props.size === "wide" ? "40px" : "0")};
-  }
 `;
 const SummaryText = styled.p`
   line-height: 1.5;
-  @media (min-width: 768px) {
-    padding-left: ${props => (props.size === "wide" ? "40px" : "0")};
-  }
 `;
 
 const StyledLink = styled(Link)`
