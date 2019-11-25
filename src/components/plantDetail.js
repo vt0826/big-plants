@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { Link } from "@reach/router";
 import plantsData from "../data/plants.json";
+import backIcon from "../img/back-arrow.png";
 
 function CommentsDisplay(props) {
   return (
@@ -36,6 +38,11 @@ function PlantDetail(props) {
   if (plant) {
     return (
       <Wrapper>
+        <ArrowContainer>
+          <Link to="/">
+            <img src={backIcon} alt={"backIcon"} />
+          </Link>
+        </ArrowContainer>
         <ImageContainer>
           <img src={plantImage} alt={"plant"} />
           <LabelName>{plant.name}</LabelName>
@@ -81,7 +88,13 @@ const Wrapper = styled.section`
     padding: 26px 20px;
   }
 `;
-
+const ArrowContainer = styled.article`
+  flex-basis: 100%;
+  img {
+    cursor: pointer;
+    width: 40px;
+  }
+`;
 const ImageContainer = styled.article`
   flex-basis: 100%;
   img {
@@ -89,6 +102,7 @@ const ImageContainer = styled.article`
     margin: 0;
   }
   @media (min-width: 768px) {
+    margin-top: 40px;
     flex-basis: 45%;
     img {
       width: 100%;
@@ -102,6 +116,7 @@ const SummaryContainer = styled.article`
   padding: 0 20px;
   margin: 0;
   @media (min-width: 768px) {
+    margin-top: 40px;
     flex-basis: 40%;
     padding: 0 40px;
   }
