@@ -2,8 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "@reach/router";
 import plantsData from "../data/plants";
-import image from "../img/icon.png";
-import logo from "../img/icon.png";
 
 function size(index) {
   if (index === 3 || index === 6) {
@@ -63,7 +61,7 @@ const Wrapper = styled.section`
 `;
 
 const Container = styled.div`
-  margin-top: 80px;
+  margin-top: 60px;
   flex-basis: 100%;
   @media (min-width: 768px) {
     flex-basis: ${props => (props.size === "wide" ? "66.6%" : "33.3%")};
@@ -127,15 +125,6 @@ const ImgOverlay = styled.div`
   background-size: cover;
   @media (min-width: 768px) {
     height: 300px;
-  }
-`;
-
-const Img = styled.img`
-  width: 100%;
-
-  margin: 0;
-  vertical-align: bottom;
-  @media (min-width: 768px) {
   }
 `;
 

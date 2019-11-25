@@ -28,7 +28,6 @@ function DesktopNav(props) {
           <NavLink>Our team</NavLink>
           <NavLink>Contact</NavLink>
           <NavLink>Water us</NavLink>
-          <NavLink>Thanks</NavLink>
         </NavLinkContainer>
       </DeskNav>
 
@@ -167,7 +166,7 @@ const MobileNavContainer = styled.div`
   `;
 //width: ${props => (props.activeMenu ? "100%" : "150px")};
 const DeskNav = styled.nav`
-  display: ${props => (props.activeMenu ? "flex" : "none")};
+  display: ${props => (props.activeMenu ? "block" : "none")};
   flex-shrink: 2;
   font-weight: 700;
   font-size: 2rem;
@@ -212,9 +211,11 @@ const DeskDiv = styled.div`
 `;
 const NavLinkContainer = styled.div`
   @media (min-width: 768px) {
+    background-color: white;
     position: absolute;
-    top: 37px;
+    top: 36px;
     right: 0px;
+    border: 1px solid #000;
   }
 `;
 
@@ -225,16 +226,21 @@ const NavLink = styled.a`
   font-weight: 700;
   width: 100%;
   line-height: 1;
-  text-align: center;
-  padding: 8px 2px;
-  border-bottom: 1px solid #000;
+  text-align: left;
+  padding: 8px 32px;
+
   &:hover {
     background-color: #000;
     color: #fff;
   }
   @media (min-width: 768px) {
+    border-bottom: 1px solid #000;
+    padding: 8px 2px;
     font-size: 16px;
-    border: 1px solid #000;
     width: 127px;
+    text-align: center;
+    &:last-child {
+      border: none;
+    }
   }
 `;
