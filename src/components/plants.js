@@ -15,9 +15,9 @@ function PlantImage(props) {
   return (
     <ImgOverlay>
       <StyledLink to={`detail/${props.index}`}>
-        <Overylay>
+        <Overlay>
           <OverlayText>{props.header}</OverlayText>
-        </Overylay>
+        </Overlay>
         <Img src={props.plantImages} alt={"plant"} key={props.index} />
       </StyledLink>
     </ImgOverlay>
@@ -84,15 +84,12 @@ const SummaryContainer = styled(Container)`
   }
 `;
 
-const Overylay = styled.div`
+const Overlay = styled.div`
   position: absolute;
-  padding: 0 4px;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 100%;
-  width: 100%;
   opacity: 0;
   transition: 0.5s ease;
   background-color: #90ee90;
@@ -112,28 +109,23 @@ const OverlayText = styled.h3`
 const ImgOverlay = styled.div`
   width: 80%;
   position: relative;
-  background-color: #90ee90;
-  height: 200px;
   text-align: center;
   margin: 0 auto;
   @media (min-width: 768px) {
-    margin-left: 40px;
-
-    height: 300px;
+    margin: 0 40px;
   }
 
-  :hover ${Overylay} {
+  :hover ${Overlay} {
     opacity: 1;
   }
 `;
 
 const Img = styled.img`
   width: 100%;
-  height: 200px;
-  padding: 0px 4px;
+
   margin: 0;
+  vertical-align: bottom;
   @media (min-width: 768px) {
-    height: 300px;
   }
 `;
 

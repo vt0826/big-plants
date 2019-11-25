@@ -1,8 +1,7 @@
 main {
   max-width: 1440px;
   background-color: #fff;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
 }
 
 header {
