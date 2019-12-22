@@ -5,7 +5,7 @@
 
 ## 🧐 What's inside?
 
-Big Human Front End Developer Code Test
+Big Human Front End 
 
 ## Table of contents
 
